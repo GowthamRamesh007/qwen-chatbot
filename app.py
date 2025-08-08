@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
-import re  # 🧼 For cleaning <think> tags
+import re
 import os
 
 # Set Streamlit page config
@@ -59,9 +59,9 @@ if user_input:
 
             # Display cleaned response
             response_text.markdown(full_response.strip())
+
         except Exception as e:
             st.error(f"Error: {e}")
 
         # Store assistant response (cleaned)
         st.session_state.messages.append(HumanMessage(content=full_response.strip()))
-
