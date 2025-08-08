@@ -6,7 +6,7 @@ import os
 
 # Set Streamlit page config
 st.set_page_config(page_title="Chatbot", layout="centered")
-st.title("💬 Chatbot powered by Qwen")
+st.title("💬 Chatbot - use like ChatGPT")
 
 # ✅ Set environment variables from Streamlit secrets
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
@@ -65,3 +65,4 @@ if user_input:
 
         # Store assistant response (cleaned)
         st.session_state.messages.append(HumanMessage(content=full_response.strip()))
+
