@@ -26,7 +26,7 @@ def get_model():
         raise ValueError("OPENAI_API_KEY or OPENAI_BASE_URL is missing")
 
     return ChatOpenAI(
-        model="qwen/qwq-32b:free",
+        model="qwen/qwen3-coder:free",
         temperature=0.0,
         streaming=True,
         api_key=api_key,
@@ -64,3 +64,4 @@ if user_input:
 
         # Store assistant response (cleaned)
         st.session_state.messages.append(HumanMessage(content=full_response.strip()))
+
