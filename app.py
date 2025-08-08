@@ -1,14 +1,16 @@
 import streamlit as st
-from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 import re  # 🧼 For cleaning <think> tags
-
-load_dotenv()
+import os
 
 # Set Streamlit page config
 st.set_page_config(page_title="Chatbot", layout="centered")
 st.title("💬 Chatbot powered by Qwen")
+
+# ✅ Set environment variables from Streamlit secrets
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+os.environ["OPENAI_BASE_URL"] = st.secrets["OPENAI_BASE_URL"]
 
 # Initialize session state for storing the conversation
 if "messages" not in st.session_state:
@@ -17,13 +19,11 @@ if "messages" not in st.session_state:
 # Initialize the model
 @st.cache_resource(show_spinner=False)
 def get_model():
-    import os
-
     api_key = os.getenv("OPENAI_API_KEY")
     base_url = os.getenv("OPENAI_BASE_URL")
 
     if not api_key or not base_url:
-        raise ValueError("OPENAI_API_KEY or OPENAI_BASE_URL is missing in .env")
+        raise ValueError("OPENAI_API_KEY or OPENAI_BASE_URL is missing")
 
     return ChatOpenAI(
         model="qwen/qwq-32b:free",
@@ -32,7 +32,6 @@ def get_model():
         api_key=api_key,
         base_url=base_url,
     )
-
 
 model = get_model()
 
